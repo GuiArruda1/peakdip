@@ -109,6 +109,7 @@ export default function Challenge100To1k({
 
   const [copied, setCopied] = useState(false);
   const [syncStatus, setSyncStatus] = useState<'synced' | 'saving' | 'idle'>('idle');
+  const [selectedStepHistoryModal, setSelectedStepHistoryModal] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // ─── AUTO-PILOT 1-TRADE-PER-DAY BOT STATE ───
@@ -733,9 +734,14 @@ export default function Challenge100To1k({
 
       {/* Shakuro Quick Action Pills (Below Card) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono">
-        <div className="tactile-card-flat p-4 flex items-center justify-between">
+        <button
+          type="button"
+          onClick={() => setSelectedStepHistoryModal(currentStepIndex + 1)}
+          className="tactile-card-flat p-4 flex items-center justify-between text-left cursor-pointer hover:border-emerald-500/50 hover:bg-slate-900/60 transition-all group"
+          title={`Click to view Stage ${currentStepIndex + 1} trade execution history`}
+        >
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center justify-center text-sm font-bold shadow-inner">
+            <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center justify-center text-sm font-bold shadow-inner group-hover:scale-105 transition-transform">
               ↙
             </div>
             <div>
@@ -743,14 +749,19 @@ export default function Challenge100To1k({
               <span className="text-sm font-black text-emerald-400">${activeStep.targetBalance.toFixed(2)}</span>
             </div>
           </div>
-          <span className="text-[10px] font-bold text-emerald-400 bg-emerald-950/40 px-2.5 py-1 rounded-full border border-emerald-500/30">
-            +${activeStep.gainDollars.toFixed(2)}
+          <span className="text-[10px] font-bold text-emerald-400 bg-emerald-950/40 px-2.5 py-1 rounded-full border border-emerald-500/30 group-hover:bg-emerald-900/60 transition-colors">
+            +${activeStep.gainDollars.toFixed(2)} ↗
           </span>
-        </div>
+        </button>
 
-        <div className="tactile-card-flat p-4 flex items-center justify-between">
+        <button
+          type="button"
+          onClick={() => setSelectedStepHistoryModal(currentStepIndex + 1)}
+          className="tactile-card-flat p-4 flex items-center justify-between text-left cursor-pointer hover:border-rose-500/50 hover:bg-slate-900/60 transition-all group"
+          title={`Click to view Stage ${currentStepIndex + 1} risk parameters`}
+        >
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 flex items-center justify-center text-sm font-bold shadow-inner">
+            <div className="w-8 h-8 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 flex items-center justify-center text-sm font-bold shadow-inner group-hover:scale-105 transition-transform">
               ↗
             </div>
             <div>
@@ -758,10 +769,10 @@ export default function Challenge100To1k({
               <span className="text-sm font-black text-rose-400">${(currentEquity * 0.965).toFixed(2)}</span>
             </div>
           </div>
-          <span className="text-[10px] font-bold text-rose-400 bg-rose-950/40 px-2.5 py-1 rounded-full border border-rose-500/30">
-            -${(currentEquity * 0.035).toFixed(2)}
+          <span className="text-[10px] font-bold text-rose-400 bg-rose-950/40 px-2.5 py-1 rounded-full border border-rose-500/30 group-hover:bg-rose-900/60 transition-colors">
+            -${(currentEquity * 0.035).toFixed(2)} ↗
           </span>
-        </div>
+        </button>
       </div>
 
       {/* ─── LIVE PROGRESS BAR & MILESTONES ─── */}
@@ -782,24 +793,44 @@ export default function Challenge100To1k({
           />
         </div>
 
-        {/* Milestone Pinpoints */}
+        {/* Milestone Pinpoints (Clickable) */}
         <div className="grid grid-cols-4 gap-2 pt-1 text-center font-mono">
-          <div className={`p-2 rounded-xl border text-[10px] transition-all ${currentStepIndex >= 0 ? 'bg-amber-500/10 border-amber-500/30 text-[#f5e098]' : 'bg-black/20 border-white/5 text-slate-500'}`}>
+          <button
+            type="button"
+            onClick={() => setSelectedStepHistoryModal(1)}
+            className={`p-2 rounded-xl border text-[10px] transition-all cursor-pointer hover:scale-[1.02] ${currentStepIndex >= 0 ? 'bg-amber-500/10 border-amber-500/30 text-[#f5e098] hover:bg-amber-500/20' : 'bg-black/20 border-white/5 text-slate-500 hover:bg-slate-800/40'}`}
+            title="Click to view Stage 1 ($100) historic"
+          >
             <span className="block font-bold">$100</span>
-            <span className="text-[8px] opacity-75">Basecamp</span>
-          </div>
-          <div className={`p-2 rounded-xl border text-[10px] transition-all ${currentStepIndex >= 3 ? 'bg-amber-500/10 border-amber-500/30 text-[#f5e098]' : 'bg-black/20 border-white/5 text-slate-500'}`}>
+            <span className="text-[8px] opacity-75">Basecamp ↗</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setSelectedStepHistoryModal(4)}
+            className={`p-2 rounded-xl border text-[10px] transition-all cursor-pointer hover:scale-[1.02] ${currentStepIndex >= 3 ? 'bg-amber-500/10 border-amber-500/30 text-[#f5e098] hover:bg-amber-500/20' : 'bg-black/20 border-white/5 text-slate-500 hover:bg-slate-800/40'}`}
+            title="Click to view Stage 4 ($217) historic"
+          >
             <span className="block font-bold">$217</span>
-            <span className="text-[8px] opacity-75">2X Doubler</span>
-          </div>
-          <div className={`p-2 rounded-xl border text-[10px] transition-all ${currentStepIndex >= 7 ? 'bg-amber-500/10 border-amber-500/30 text-[#f5e098]' : 'bg-black/20 border-white/5 text-slate-500'}`}>
+            <span className="text-[8px] opacity-75">2X Doubler ↗</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setSelectedStepHistoryModal(8)}
+            className={`p-2 rounded-xl border text-[10px] transition-all cursor-pointer hover:scale-[1.02] ${currentStepIndex >= 7 ? 'bg-amber-500/10 border-amber-500/30 text-[#f5e098] hover:bg-amber-500/20' : 'bg-black/20 border-white/5 text-slate-500 hover:bg-slate-800/40'}`}
+            title="Click to view Stage 8 ($474) historic"
+          >
             <span className="block font-bold">$474</span>
-            <span className="text-[8px] opacity-75">5X Halfway</span>
-          </div>
-          <div className={`p-2 rounded-xl border text-[10px] transition-all ${currentStepIndex >= 11 ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300' : 'bg-black/20 border-white/5 text-slate-500'}`}>
+            <span className="text-[8px] opacity-75">5X Halfway ↗</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setSelectedStepHistoryModal(12)}
+            className={`p-2 rounded-xl border text-[10px] transition-all cursor-pointer hover:scale-[1.02] ${currentStepIndex >= 11 ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300 hover:bg-emerald-500/20' : 'bg-black/20 border-white/5 text-slate-500 hover:bg-slate-800/40'}`}
+            title="Click to view Stage 12 ($1,034) historic"
+          >
             <span className="block font-bold">$1,034</span>
-            <span className="text-[8px] opacity-75">10X Legend</span>
-          </div>
+            <span className="text-[8px] opacity-75">10X Legend ↗</span>
+          </button>
         </div>
       </div>
 
@@ -1314,36 +1345,50 @@ export default function Challenge100To1k({
               <span className="text-[10px] font-mono text-slate-400">Plausible: 45–60 Days</span>
             </div>
 
-            {/* Scrollable list of 12 steps */}
+            {/* Scrollable list of 12 steps with Click-to-View History */}
             <div className="mt-2 space-y-1 max-h-[260px] overflow-y-auto pr-1">
               {LADDER_STEPS.map((step) => {
                 const isCurrent = step.stepNumber === currentStepIndex + 1;
                 const isDone = step.stepNumber < currentStepIndex + 1;
+                const stepTrades = tradeHistory.filter((t) => t.step === step.stepNumber);
 
                 return (
-                  <div
+                  <button
                     key={step.stepNumber}
-                    className={`px-2.5 py-1.5 rounded-lg text-xs font-mono flex items-center justify-between transition-all ${
+                    type="button"
+                    onClick={() => setSelectedStepHistoryModal(step.stepNumber)}
+                    className={`w-full px-2.5 py-1.5 rounded-lg text-xs font-mono flex items-center justify-between transition-all text-left cursor-pointer group ${
                       isCurrent
-                        ? 'bg-amber-950/70 border border-amber-500 text-amber-200 shadow-md'
+                        ? 'bg-amber-950/70 border border-amber-500 text-amber-200 shadow-md ring-1 ring-amber-500/30'
                         : isDone
-                        ? 'bg-emerald-950/30 text-emerald-400/80 border border-emerald-900/30'
-                        : 'text-slate-400 hover:text-slate-300'
+                        ? 'bg-emerald-950/30 text-emerald-400/80 border border-emerald-900/30 hover:border-emerald-500/40 hover:bg-emerald-950/50'
+                        : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/40'
                     }`}
+                    title={`Click to view trade history for Stage ${step.stepNumber}`}
                   >
                     <div className="flex items-center gap-2">
                       <span className={`w-4 text-center font-bold ${isDone ? 'text-emerald-400' : isCurrent ? 'text-amber-400' : 'text-slate-600'}`}>
                         {isDone ? '✓' : step.stepNumber}
                       </span>
                       <span>${step.startBalance.toFixed(2)} → <strong className="text-white">${step.targetBalance.toFixed(2)}</strong></span>
+                      {stepTrades.length > 0 && (
+                        <span className="text-[9px] px-1.5 py-0.2 rounded bg-cyan-950/80 text-cyan-300 border border-cyan-800/50">
+                          {stepTrades.length} log{stepTrades.length > 1 ? 's' : ''}
+                        </span>
+                      )}
                     </div>
 
-                    {step.milestoneBadge && (
-                      <span className="text-[9px] px-1.5 py-0.2 rounded bg-slate-800 text-slate-200 font-bold border border-slate-700">
-                        {step.milestoneBadge}
+                    <div className="flex items-center gap-1.5">
+                      {step.milestoneBadge && (
+                        <span className="text-[9px] px-1.5 py-0.2 rounded bg-slate-800 text-slate-200 font-bold border border-slate-700">
+                          {step.milestoneBadge}
+                        </span>
+                      )}
+                      <span className="text-[10px] text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity font-bold">
+                        History →
                       </span>
-                    )}
-                  </div>
+                    </div>
+                  </button>
                 );
               })}
             </div>
@@ -1355,6 +1400,210 @@ export default function Challenge100To1k({
           </div>
         </div>
       </div>
+
+      {/* ─── STAGE TRADE HISTORIC MODAL FOR CHALLENGE 100 TO 1K ─── */}
+      {selectedStepHistoryModal !== null && (() => {
+        const stepNum = selectedStepHistoryModal;
+        const stepData = LADDER_STEPS.find((s) => s.stepNumber === stepNum) || LADDER_STEPS[0];
+        const isCurrent = stepNum === currentStepIndex + 1;
+        const isDone = stepNum < currentStepIndex + 1;
+        const stepTrades = tradeHistory.filter((t) => t.step === stepNum);
+
+        return (
+          <div 
+            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
+            onClick={() => setSelectedStepHistoryModal(null)}
+          >
+            <div 
+              className="w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-2xl bg-[#0e1017] border border-slate-700 shadow-2xl p-5 sm:p-6 space-y-5 relative text-slate-100 font-mono"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header */}
+              <div className="flex items-start justify-between pb-3 border-b border-white/[0.08]">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-b from-amber-500/20 to-emerald-500/10 border border-amber-500/40 flex items-center justify-center text-amber-400 font-black text-base shadow-inner">
+                    {stepNum}
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <h3 className="text-base font-bold text-white uppercase tracking-wider">
+                        Stage {stepNum} Trade Historic
+                      </h3>
+                      {isCurrent ? (
+                        <span className="px-2 py-0.5 rounded text-[9px] font-black bg-amber-900 text-amber-300 border border-amber-700 uppercase">
+                          ● ACTIVE NOW
+                        </span>
+                      ) : isDone ? (
+                        <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-800/60 uppercase">
+                          ✓ COMPLETED
+                        </span>
+                      ) : (
+                        <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-slate-800 text-slate-400 uppercase">
+                          LOCKED
+                        </span>
+                      )}
+                    </div>
+                    <p className="text-xs text-slate-400 mt-0.5">
+                      {stepData.milestoneTitle || `Compounding Ladder Milestone Stage ${stepNum}`}
+                    </p>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => setSelectedStepHistoryModal(null)}
+                  className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all"
+                  title="Close modal"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Financial Breakdown Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
+                <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+                  <span className="text-[10px] text-slate-500 block uppercase">Starting Capital</span>
+                  <span className="text-sm font-bold text-slate-200">${stepData.startBalance.toFixed(2)}</span>
+                </div>
+
+                <div className="p-3 rounded-xl bg-slate-900/90 border border-emerald-900/40">
+                  <span className="text-[10px] text-emerald-400 block uppercase">Target Gain (+21.5%)</span>
+                  <span className="text-sm font-bold text-emerald-300">+${stepData.gainDollars.toFixed(2)}</span>
+                </div>
+
+                <div className="p-3 rounded-xl bg-slate-900/90 border border-cyan-900/40">
+                  <span className="text-[10px] text-cyan-400 block uppercase">Ending Target</span>
+                  <span className="text-sm font-bold text-cyan-300">${stepData.targetBalance.toFixed(2)}</span>
+                </div>
+
+                <div className="p-3 rounded-xl bg-slate-900/90 border border-rose-900/40">
+                  <span className="text-[10px] text-rose-400 block uppercase">Stop Loss Risk (-3.5%)</span>
+                  <span className="text-sm font-bold text-rose-300">-${(stepData.startBalance * 0.035).toFixed(2)}</span>
+                </div>
+              </div>
+
+              {/* Golden Target Formula */}
+              <div className="p-3 rounded-xl bg-slate-900/50 border border-slate-800 flex items-center justify-between text-xs text-slate-400">
+                <div className="flex items-center gap-2">
+                  <Target className="w-4 h-4 text-amber-400 shrink-0" />
+                  <span>Golden 1.618R Formula:</span>
+                </div>
+                <span className="text-amber-300 font-bold">
+                  +5.66% Spot Move on Bitcoin / S&P 500
+                </span>
+              </div>
+
+              {/* Execution History for this Stage */}
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                    <Activity className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>Execution History for Stage {stepNum} ({stepTrades.length} Logged)</span>
+                  </h4>
+                </div>
+
+                {stepTrades.length > 0 ? (
+                  <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
+                    {stepTrades.map((t, idx) => (
+                      <div 
+                        key={t.id || idx}
+                        className={`p-3 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs ${
+                          t.result === 'WIN' 
+                            ? 'bg-emerald-950/30 border-emerald-500/40' 
+                            : 'bg-rose-950/30 border-rose-500/40'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5">
+                          <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider ${
+                            t.result === 'WIN' 
+                              ? 'bg-emerald-500 text-black shadow-sm' 
+                              : 'bg-rose-600 text-white shadow-sm'
+                          }`}>
+                            {t.result}
+                          </span>
+                          <div>
+                            <span className="font-bold text-white">
+                              {t.asset === 'BTC' ? '₿ Bitcoin (BTC/USDT)' : '📈 S&P 500 (SPY)'}
+                            </span>
+                            <span className="text-[10px] text-slate-400 block flex items-center gap-1">
+                              <Clock className="w-3 h-3 text-slate-500" />
+                              <span>{t.date}</span>
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-3 self-end sm:self-auto">
+                          <div className="text-right">
+                            <span className={`font-bold block ${t.result === 'WIN' ? 'text-emerald-400' : 'text-rose-400'}`}>
+                              {t.result === 'WIN' ? `+$${stepData.gainDollars.toFixed(2)} (+21.5%)` : `-$${(stepData.startBalance * 0.035).toFixed(2)} (-3.5%)`}
+                            </span>
+                            <span className="text-[10px] text-slate-400">
+                              Balance After: <strong className="text-white">${t.balanceAfter.toFixed(2)}</strong>
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="p-5 rounded-xl bg-slate-900/60 border border-slate-800 text-center space-y-2">
+                    <Activity className="w-6 h-6 text-slate-500 mx-auto opacity-50" />
+                    <p className="text-xs text-slate-400">
+                      {isCurrent 
+                        ? 'No completed trades on Stage ' + stepNum + ' yet. This stage is currently active and waiting for a resolution.'
+                        : isDone
+                        ? 'Stage ' + stepNum + ' was completed successfully.'
+                        : 'Stage ' + stepNum + ' is currently locked. Complete Stage ' + (stepNum - 1) + ' to unlock.'}
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* Live Active Trade HUD if currently running on this stage */}
+              {isCurrent && activeTrade && (
+                <div className="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/50 space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold text-emerald-300 flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                      Live Open Position on Stage {stepNum}: {activeTrade.asset}
+                    </span>
+                    <span className={`text-xs font-bold font-mono ${unrealizedPnlPct >= 0 ? 'text-emerald-300' : 'text-rose-300'}`}>
+                      Live PnL: {unrealizedPnlPct >= 0 ? '+' : ''}${unrealizedDollarGain.toFixed(2)} ({unrealizedPnlPct >= 0 ? '+' : ''}{unrealizedPnlPct.toFixed(2)}%)
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-2 text-[11px] text-slate-300">
+                    <div className="p-2 rounded bg-slate-900/80">
+                      <span className="text-[9px] text-slate-500 block">Entry Spot</span>
+                      <span className="font-bold text-white">${activeTrade.entryPrice.toLocaleString()}</span>
+                    </div>
+                    <div className="p-2 rounded bg-slate-900/80">
+                      <span className="text-[9px] text-amber-400 block">1.618R Target</span>
+                      <span className="font-bold text-amber-300">${activeTrade.targetPrice.toLocaleString()}</span>
+                    </div>
+                    <div className="p-2 rounded bg-slate-900/80">
+                      <span className="text-[9px] text-rose-400 block">Hard Stop</span>
+                      <span className="font-bold text-rose-300">${activeTrade.stopLossPrice.toLocaleString()}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Footer Actions */}
+              <div className="pt-2 flex items-center justify-between border-t border-white/[0.08] text-xs">
+                <span className="text-[11px] text-slate-500">
+                  PEAK Vanguard Compounding Engine • Zero Spread Markups
+                </span>
+                <button
+                  onClick={() => setSelectedStepHistoryModal(null)}
+                  className="px-4 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold transition-all"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* ─── FLOATING IN-APP TRADE COMPLETION NOTIFICATION (EARNS & LOSSES) ─── */}
       {tradeToast && (

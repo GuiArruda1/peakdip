@@ -22,6 +22,12 @@ import {
   Volume2,
   Sliders,
   Send,
+  History,
+  X,
+  Clock,
+  Calendar,
+  Target,
+  ArrowRight,
 } from 'lucide-react';
 import {
   checkNotificationPermission,
@@ -43,6 +49,9 @@ export default function QuantfuryHubPage() {
 
   // Copy Feedback Toasts
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
+
+  // Stage Trade History Modal State
+  const [selectedStageForHistory, setSelectedStageForHistory] = useState<number | null>(null);
 
   // Interface Mockup View Mode
   const [mockupMode, setMockupMode] = useState<'mobile' | 'web'>('mobile');
@@ -798,62 +807,301 @@ export default function QuantfuryHubPage() {
               </div>
             </div>
 
-            {/* 12-Step Vanguard Roadmap Table */}
+            {/* 12-Step Vanguard Roadmap Table with Click-to-View Trade History */}
             <div className="p-6 rounded-2xl bg-[#090D15] border border-slate-800 space-y-4">
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
                 <h3 className="text-sm font-mono font-bold text-white uppercase tracking-wider flex items-center gap-2">
                   <TrendingUp className="w-4 h-4 text-cyan-400" />
                   12-Step Compounding Roadmap
                 </h3>
-                <span className="text-[11px] font-mono text-emerald-400 font-bold">
-                  +21.5% Per Step
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-mono text-slate-400 hidden sm:inline">
+                    Click any gain/stage to inspect trade history
+                  </span>
+                  <span className="text-[11px] font-mono text-emerald-400 font-bold bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-500/30">
+                    +21.5% Per Step
+                  </span>
+                </div>
               </div>
 
-              <div className="max-h-72 overflow-y-auto pr-1 space-y-1.5 font-mono text-xs">
+              <div className="max-h-80 overflow-y-auto pr-1 space-y-1.5 font-mono text-xs">
                 {compoundingSteps.map((s) => {
-                  const isCurrent = s.step === (profile?.stepIndex ? profile.stepIndex + 1 : 1);
-                  const isPassed = s.step < (profile?.stepIndex ? profile.stepIndex + 1 : 1);
+                  const currentStepNum = profile?.stepIndex ? profile.stepIndex + 1 : 1;
+                  const isCurrent = s.step === currentStepNum;
+                  const isPassed = s.step < currentStepNum;
+                  const stageTrades = (profile?.tradeHistory || []).filter((t) => t.step === s.step);
+                  const hasHistory = stageTrades.length > 0;
 
                   return (
-                    <div
+                    <button
                       key={s.step}
-                      className={`flex items-center justify-between p-2.5 rounded-lg border transition-all ${
+                      type="button"
+                      onClick={() => setSelectedStageForHistory(s.step)}
+                      className={`w-full flex items-center justify-between p-2.5 rounded-xl border transition-all text-left cursor-pointer group ${
                         isCurrent
-                          ? 'bg-emerald-950/60 border-emerald-500/80 text-white font-bold shadow-md'
+                          ? 'bg-emerald-950/60 border-emerald-500/80 text-white font-bold shadow-md hover:border-emerald-400 hover:bg-emerald-950/80 ring-1 ring-emerald-500/30'
                           : isPassed
-                          ? 'bg-slate-900/40 border-slate-800/60 text-slate-500 line-through'
-                          : 'bg-[#0B0F17] border-slate-850 text-slate-400'
+                          ? 'bg-slate-900/40 border-slate-800/60 text-slate-400 hover:border-emerald-500/40 hover:bg-slate-900/80'
+                          : 'bg-[#0B0F17] border-slate-850 text-slate-400 hover:border-cyan-500/40 hover:bg-slate-900/60'
                       }`}
+                      title={`Click to view trade execution history for Stage ${s.step}`}
                     >
                       <div className="flex items-center gap-2">
-                        <span className={`w-5 h-5 rounded flex items-center justify-center text-[10px] font-bold ${
-                          isCurrent ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-400'
+                        <span className={`w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-bold shrink-0 transition-transform group-hover:scale-110 ${
+                          isCurrent ? 'bg-emerald-600 text-white shadow-sm' : isPassed ? 'bg-emerald-950 text-emerald-400 border border-emerald-800/50' : 'bg-slate-800 text-slate-400'
                         }`}>
-                          {s.step}
+                          {isPassed ? '✓' : s.step}
                         </span>
-                        <span>Stage {s.step}</span>
-                        {isCurrent && (
-                          <span className="px-1.5 py-0.2 rounded text-[9px] bg-emerald-900 text-emerald-300 uppercase">
-                            CURRENT
+                        <div className="flex items-center gap-1.5">
+                          <span className={isCurrent ? 'text-white' : isPassed ? 'text-slate-300' : 'text-slate-400'}>
+                            Stage {s.step}
                           </span>
-                        )}
+                          {isCurrent && (
+                            <span className="px-1.5 py-0.2 rounded text-[9px] bg-emerald-900/90 text-emerald-300 border border-emerald-700/60 uppercase font-black">
+                              CURRENT
+                            </span>
+                          )}
+                          {hasHistory && (
+                            <span className="px-1.5 py-0.2 rounded text-[9px] bg-cyan-950/60 text-cyan-300 border border-cyan-800/50 flex items-center gap-1">
+                              <History className="w-2.5 h-2.5" />
+                              <span>{stageTrades.length} trade{stageTrades.length > 1 ? 's' : ''}</span>
+                            </span>
+                          )}
+                        </div>
                       </div>
 
-                      <div className="flex items-center gap-4">
-                        <span className="text-slate-400">
-                          Trade: <strong>${s.startEquity.toFixed(2)}</strong>
+                      <div className="flex items-center gap-3">
+                        <span className="text-slate-400 text-[11px]">
+                          Trade: <strong className="text-slate-200 font-bold">${s.startEquity.toFixed(2)}</strong>
                         </span>
-                        <span className="text-emerald-400 font-bold">
-                          End: ${s.endEquity.toFixed(2)}
-                        </span>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-emerald-400 font-bold">
+                            End: ${s.endEquity.toFixed(2)}
+                          </span>
+                          <span className="text-[10px] font-bold text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity flex items-center">
+                            History →
+                          </span>
+                        </div>
                       </div>
-                    </div>
+                    </button>
                   );
                 })}
               </div>
             </div>
           </div>
+
+          {/* ─── STAGE TRADE HISTORY & EXECUTION BREAKDOWN MODAL ─── */}
+          {selectedStageForHistory !== null && (() => {
+            const stepNum = selectedStageForHistory;
+            const stepData = compoundingSteps.find((s) => s.step === stepNum) || compoundingSteps[0];
+            const currentStepNum = profile?.stepIndex ? profile.stepIndex + 1 : 1;
+            const isCurrent = stepNum === currentStepNum;
+            const isPassed = stepNum < currentStepNum;
+            const isFuture = stepNum > currentStepNum;
+            const stageTrades = (profile?.tradeHistory || []).filter((t) => t.step === stepNum);
+
+            const milestoneTitles: Record<number, string> = {
+              1: 'Basecamp Launch (🚀 Stage 1)',
+              4: '2x Capital Doubler (💰 2X Milestone)',
+              8: '5x Halfway Hero (⚡ 5X Halfway)',
+              12: '10x Institutional Legend (🏆 10X APEX)',
+            };
+
+            return (
+              <div 
+                className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/80 backdrop-blur-md animate-in fade-in duration-200"
+                onClick={() => setSelectedStageForHistory(null)}
+              >
+                <div 
+                  className="w-full max-w-xl max-h-[90vh] overflow-y-auto rounded-2xl bg-[#090D15] border border-slate-700 shadow-2xl p-5 sm:p-6 space-y-5 relative text-slate-100 font-mono"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {/* Modal Header */}
+                  <div className="flex items-start justify-between pb-3 border-b border-slate-800">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-b from-emerald-500/20 to-cyan-500/10 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-black text-base shadow-inner">
+                        {stepNum}
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <h3 className="text-base font-bold text-white uppercase tracking-wider">
+                            Stage {stepNum} Trade Historic
+                          </h3>
+                          {isCurrent ? (
+                            <span className="px-2 py-0.5 rounded text-[9px] font-black bg-emerald-900 text-emerald-300 border border-emerald-700 uppercase">
+                              ● ACTIVE NOW
+                            </span>
+                          ) : isPassed ? (
+                            <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-800/60 uppercase">
+                              ✓ COMPLETED
+                            </span>
+                          ) : (
+                            <span className="px-2 py-0.5 rounded text-[9px] font-bold bg-slate-800 text-slate-400 uppercase">
+                              LOCKED
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-xs text-slate-400 mt-0.5">
+                          {milestoneTitles[stepNum] || `Compounding Ladder Milestone Stage ${stepNum}`}
+                        </p>
+                      </div>
+                    </div>
+
+                    <button
+                      onClick={() => setSelectedStageForHistory(null)}
+                      className="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white transition-all"
+                      title="Close modal"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+
+                  {/* Financial Targets Grid */}
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs">
+                    <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800">
+                      <span className="text-[10px] text-slate-500 block uppercase">Starting Capital</span>
+                      <span className="text-sm font-bold text-slate-200">${stepData.startEquity.toFixed(2)}</span>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-slate-900/90 border border-emerald-900/40">
+                      <span className="text-[10px] text-emerald-400 block uppercase">Target Gain (+21.5%)</span>
+                      <span className="text-sm font-bold text-emerald-300">+${stepData.winGain.toFixed(2)}</span>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-slate-900/90 border border-cyan-900/40">
+                      <span className="text-[10px] text-cyan-400 block uppercase">Ending Target</span>
+                      <span className="text-sm font-bold text-cyan-300">${stepData.endEquity.toFixed(2)}</span>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-slate-900/90 border border-rose-900/40">
+                      <span className="text-[10px] text-rose-400 block uppercase">Stop Loss Risk (-3.5%)</span>
+                      <span className="text-sm font-bold text-rose-300">-${stepData.riskLoss.toFixed(2)}</span>
+                    </div>
+                  </div>
+
+                  {/* Golden Target Multiplier Formula */}
+                  <div className="p-3 rounded-xl bg-slate-900/50 border border-slate-800 flex items-center justify-between text-xs text-slate-400">
+                    <div className="flex items-center gap-2">
+                      <Target className="w-4 h-4 text-amber-400 shrink-0" />
+                      <span>Golden 1.618R Formula:</span>
+                    </div>
+                    <span className="text-amber-300 font-bold">
+                      +5.66% Spot Price Move required on Bitcoin / S&P 500
+                    </span>
+                  </div>
+
+                  {/* Trades Executed on this Stage */}
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                        <History className="w-3.5 h-3.5 text-cyan-400" />
+                        <span>Execution History for Stage {stepNum} ({stageTrades.length} Logged)</span>
+                      </h4>
+                    </div>
+
+                    {stageTrades.length > 0 ? (
+                      <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
+                        {stageTrades.map((t, idx) => (
+                          <div 
+                            key={t.id || idx}
+                            className={`p-3 rounded-xl border flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs ${
+                              t.result === 'WIN' 
+                                ? 'bg-emerald-950/30 border-emerald-500/40' 
+                                : 'bg-rose-950/30 border-rose-500/40'
+                            }`}
+                          >
+                            <div className="flex items-center gap-2.5">
+                              <span className={`px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider ${
+                                t.result === 'WIN' 
+                                  ? 'bg-emerald-500 text-black shadow-sm' 
+                                  : 'bg-rose-600 text-white shadow-sm'
+                              }`}>
+                                {t.result}
+                              </span>
+                              <div>
+                                <span className="font-bold text-white">
+                                  {t.asset === 'BTC' ? '₿ Bitcoin (BTC/USDT)' : '📈 S&P 500 (SPY)'}
+                                </span>
+                                <span className="text-[10px] text-slate-400 block flex items-center gap-1">
+                                  <Clock className="w-3 h-3 text-slate-500" />
+                                  <span>{t.date}</span>
+                                </span>
+                              </div>
+                            </div>
+
+                            <div className="flex items-center gap-3 self-end sm:self-auto">
+                              <div className="text-right">
+                                <span className={`font-bold block ${t.result === 'WIN' ? 'text-emerald-400' : 'text-rose-400'}`}>
+                                  {t.result === 'WIN' ? `+$${stepData.winGain.toFixed(2)} (+21.5%)` : `-$${stepData.riskLoss.toFixed(2)} (-3.5%)`}
+                                </span>
+                                <span className="text-[10px] text-slate-400">
+                                  Balance: <strong className="text-white">${t.balanceAfter.toFixed(2)}</strong>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="p-5 rounded-xl bg-slate-900/60 border border-slate-800 text-center space-y-2">
+                        <History className="w-6 h-6 text-slate-500 mx-auto opacity-50" />
+                        <p className="text-xs text-slate-400">
+                          {isCurrent 
+                            ? 'No completed trades on Stage ' + stepNum + ' yet. Stage is currently active and waiting for trade resolution.'
+                            : isPassed
+                            ? 'Stage ' + stepNum + ' was completed. (Detailed log stored in challenge database).'
+                            : 'Stage ' + stepNum + ' has not been started yet. Reach Stage ' + stepNum + ' by winning Stage ' + (stepNum - 1) + '.'}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Live Active Trade HUD if currently running on this stage */}
+                  {isCurrent && activeTrade && (
+                    <div className="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/50 space-y-3">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs font-bold text-emerald-300 flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                          Live Open Position on Stage {stepNum}: {activeTrade.asset}
+                        </span>
+                        <span className={`text-xs font-bold font-mono ${unrealizedPct >= 0 ? 'text-emerald-300' : 'text-rose-300'}`}>
+                          Live PnL: {unrealizedPct >= 0 ? '+' : ''}${unrealizedDollar.toFixed(2)} ({unrealizedPct >= 0 ? '+' : ''}{unrealizedPct.toFixed(2)}%)
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-3 gap-2 text-[11px] text-slate-300">
+                        <div className="p-2 rounded bg-slate-900/80">
+                          <span className="text-[9px] text-slate-500 block">Entry Spot</span>
+                          <span className="font-bold text-white">${activeTrade.entryPrice.toLocaleString()}</span>
+                        </div>
+                        <div className="p-2 rounded bg-slate-900/80">
+                          <span className="text-[9px] text-amber-400 block">1.618R Target</span>
+                          <span className="font-bold text-amber-300">${activeTrade.targetPrice.toLocaleString()}</span>
+                        </div>
+                        <div className="p-2 rounded bg-slate-900/80">
+                          <span className="text-[9px] text-rose-400 block">Hard Stop</span>
+                          <span className="font-bold text-rose-300">${activeTrade.stopLossPrice.toLocaleString()}</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Footer Actions */}
+                  <div className="pt-2 flex items-center justify-between border-t border-slate-800 text-xs">
+                    <span className="text-[11px] text-slate-500">
+                      PEAK Vanguard Compounding Engine • Zero Spread Markups
+                    </span>
+                    <button
+                      onClick={() => setSelectedStageForHistory(null)}
+                      className="px-4 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold transition-all"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
         </section>
 
         {/* SECTION 4: MOBILE ALERTS & WEBHOOK DISPATCHER */}
