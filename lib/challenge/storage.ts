@@ -38,7 +38,8 @@ export interface ChallengeProfile {
   updatedAt: string;
 }
 
-const DATA_DIR = path.join(process.cwd(), 'data');
+const IS_VERCEL = process.env.VERCEL === '1' || Boolean(process.env.AWS_LAMBDA_FUNCTION_NAME);
+const DATA_DIR = IS_VERCEL ? path.join('/tmp', 'peak-data') : path.join(process.cwd(), 'data');
 const FILE_PATH = path.join(DATA_DIR, 'challenge_profile.json');
 
 const DEFAULT_PROFILE: ChallengeProfile = {

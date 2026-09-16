@@ -39,6 +39,7 @@ export default function QuantfuryHubPage() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isSyncing, setIsSyncing] = useState<boolean>(false);
   const [lastRefreshed, setLastRefreshed] = useState<Date>(new Date());
+  const [mounted, setMounted] = useState<boolean>(false);
 
   // Copy Feedback Toasts
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
@@ -83,6 +84,7 @@ export default function QuantfuryHubPage() {
   };
 
   useEffect(() => {
+    setMounted(true);
     fetchData();
     // Refresh prices every 6 seconds
     const interval = setInterval(fetchData, 6000);
@@ -280,7 +282,7 @@ export default function QuantfuryHubPage() {
                 15-Second Mirror Protocol
               </span>
               <span className="text-xs font-mono text-slate-400">
-                Updated {lastRefreshed.toLocaleTimeString()}
+                Updated {mounted ? lastRefreshed.toLocaleTimeString() : 'Live'}
               </span>
             </div>
 

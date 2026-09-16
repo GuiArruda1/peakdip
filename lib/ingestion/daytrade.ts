@@ -27,40 +27,42 @@ async function fetchBinanceIntraday(
   interval: DayTradeTimeframe,
   limit: number
 ): Promise<DayTradeCandle[]> {
-  try {
-    const formattedSymbol = symbol.endsWith('USDT') ? symbol : `${symbol}USDT`;
-    const url = `https://api.binance.com/api/v3/klines?symbol=${formattedSymbol}&interval=${interval}&limit=${limit}`;
+  const formattedSymbol = symbol.endsWith('USDT') ? symbol : `${symbol}USDT`;
+  const hosts = ['https://api.binance.com', 'https://api.binance.us'];
 
-    const res = await fetch(url, {
-      headers: { 'User-Agent': 'Mozilla/5.0 (PEAK-DayTrade-Engine)' },
-      cache: 'no-store', // Real-time intraday
-    });
+  for (const host of hosts) {
+    try {
+      const url = `${host}/api/v3/klines?symbol=${formattedSymbol}&interval=${interval}&limit=${limit}`;
 
-    if (!res.ok) {
-      throw new Error(`Binance API error: ${res.status} ${res.statusText}`);
+      const res = await fetch(url, {
+        headers: { 'User-Agent': 'Mozilla/5.0 (PEAK-DayTrade-Engine)' },
+        cache: 'no-store', // Real-time intraday
+      });
+
+      if (!res.ok) continue;
+
+      const data = await res.json();
+      if (!Array.isArray(data) || data.length === 0) continue;
+
+      return data.map((item: any[]) => {
+        const openTimeMs = Number(item[0]);
+        return {
+          time: Math.floor(openTimeMs / 1000), // UNIX epoch seconds
+          isoTime: new Date(openTimeMs).toISOString(),
+          open: parseFloat(item[1]),
+          high: parseFloat(item[2]),
+          low: parseFloat(item[3]),
+          close: parseFloat(item[4]),
+          volume: parseFloat(item[5]),
+        };
+      });
+    } catch {
+      // Continue to next host
     }
-
-    const data = await res.json();
-    if (!Array.isArray(data)) {
-      throw new Error('Invalid array response from Binance API');
-    }
-
-    return data.map((item: any[]) => {
-      const openTimeMs = Number(item[0]);
-      return {
-        time: Math.floor(openTimeMs / 1000), // UNIX epoch seconds
-        isoTime: new Date(openTimeMs).toISOString(),
-        open: parseFloat(item[1]),
-        high: parseFloat(item[2]),
-        low: parseFloat(item[3]),
-        close: parseFloat(item[4]),
-        volume: parseFloat(item[5]),
-      };
-    });
-  } catch (err) {
-    console.error(`Failed to fetch Binance intraday for ${symbol}:`, err);
-    return generateFallbackIntraday(symbol, interval, limit);
   }
+
+  console.warn(`Failed to fetch Binance intraday for ${symbol} across all endpoints, using fallback generator`);
+  return generateFallbackIntraday(symbol, interval, limit);
 }
 
 /**
