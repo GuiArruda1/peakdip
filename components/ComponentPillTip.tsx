@@ -63,35 +63,35 @@ export default function ComponentPillTip({
 
   return (
     <div className="mb-2 relative z-20 max-w-full min-w-0">
-      {/* Main Interactive Pill Bar */}
+      {/* Main Interactive Pill Bar (Shakuro Tactile Pill) */}
       <div
         onClick={() => setIsExpanded(!isExpanded)}
-        className={`inline-flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full border text-[10px] sm:text-xs font-mono backdrop-blur-md cursor-pointer select-none transition-all shadow-md max-w-full overflow-hidden ${themeStyles.pillBg} ${themeStyles.glow}`}
+        className={`inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 rounded-full border text-[10px] sm:text-xs font-mono backdrop-blur-xl cursor-pointer select-none transition-all shadow-lg max-w-full overflow-hidden bg-[#181a21]/90 border-white/[0.08] border-t-white/[0.2] hover:border-white/25 active:scale-98`}
         title="Click to learn what is happening in this component"
       >
-        <span className={`px-1.5 py-0.2 rounded text-[8px] sm:text-[9px] font-bold uppercase tracking-wider border shrink-0 ${themeStyles.badgeBg}`}>
+        <span className={`px-2 py-0.5 rounded-full text-[8px] sm:text-[9px] font-black uppercase tracking-widest border shrink-0 ${themeStyles.badgeBg}`}>
           {layer}
         </span>
 
-        <span className="font-bold text-white hidden md:inline shrink-0">{title}:</span>
+        <span className="font-bold text-white hidden md:inline shrink-0 tracking-tight">{title}:</span>
 
-        <span className="text-slate-300 text-[10px] sm:text-[11px] truncate max-w-[100px] xs:max-w-[150px] sm:max-w-xs md:max-w-md">
+        <span className="text-slate-300 text-[10px] sm:text-[11px] truncate max-w-[120px] xs:max-w-[170px] sm:max-w-xs md:max-w-md">
           {liveStatus}
         </span>
 
-        <div className="flex items-center gap-0.5 sm:gap-1 text-[9px] sm:text-[10px] opacity-80 hover:opacity-100 ml-auto shrink-0">
-          <Info className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-          <span className="hidden md:inline">{isExpanded ? 'Hide' : 'Explain'}</span>
+        <div className="flex items-center gap-1 text-[9px] sm:text-[10px] text-slate-400 hover:text-white ml-auto shrink-0 pl-1">
+          <Info className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#f5e098]" />
+          <span className="hidden md:inline font-semibold">{isExpanded ? 'Hide' : 'Explain'}</span>
           {isExpanded ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
         </div>
       </div>
 
-      {/* Expandable Explanation Popover Drawer */}
+      {/* Expandable Explanation Popover Drawer (Tactile Card) */}
       {isExpanded && (
-        <div className="mt-2 p-3 sm:p-4 rounded-xl bg-[#0B0F17]/95 border border-slate-700/80 shadow-2xl backdrop-blur-xl animate-in fade-in slide-in-from-top-1 duration-200 text-xs font-sans space-y-3 max-w-full sm:max-w-2xl overflow-hidden">
+        <div className="mt-2.5 p-4 sm:p-5 tactile-card text-xs font-sans space-y-3 max-w-full sm:max-w-2xl overflow-hidden animate-in fade-in slide-in-from-top-1 duration-200">
           <div>
             <div className="flex items-center justify-between">
-              <span className={`font-mono text-[11px] font-bold uppercase tracking-wider ${themeStyles.accentText}`}>
+              <span className={`font-mono text-[11px] font-black uppercase tracking-wider ${themeStyles.accentText}`}>
                 {layer} • {title}
               </span>
               <button
@@ -99,24 +99,24 @@ export default function ComponentPillTip({
                   e.stopPropagation();
                   setIsExpanded(false);
                 }}
-                className="text-slate-400 hover:text-white text-xs font-mono"
+                className="tactile-squircle px-2.5 py-1 text-slate-400 hover:text-white text-xs font-mono"
               >
                 ✕ Close
               </button>
             </div>
-            <p className="text-slate-200 mt-1.5 leading-relaxed text-xs">
+            <p className="text-slate-200 mt-2 leading-relaxed text-xs">
               {summary}
             </p>
           </div>
 
-          <div className="pt-2.5 border-t border-slate-800/80 space-y-1.5">
-            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-slate-400">
-              How to Read & Action This:
+          <div className="pt-3 border-t border-white/[0.08] space-y-2">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#f5e098]">
+              HOW TO READ & ACTION THIS:
             </span>
-            <ul className="space-y-1">
+            <ul className="space-y-1.5">
               {howToRead.map((item, idx) => (
-                <li key={idx} className="flex items-start gap-1.5 text-[11px] text-slate-300 leading-snug">
-                  <span className={themeStyles.accentText}>▸</span>
+                <li key={idx} className="flex items-start gap-2 text-[11px] text-slate-300 leading-snug">
+                  <span className={`${themeStyles.accentText} font-bold`}>▸</span>
                   <span>{item}</span>
                 </li>
               ))}
