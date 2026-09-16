@@ -575,24 +575,24 @@ export default function Challenge100To1k({
   };
 
   return (
-    <div className="bg-[#090D16] border border-slate-800/90 rounded-2xl overflow-hidden shadow-2xl p-4 sm:p-6 space-y-6">
+    <div className="tactile-card p-4 sm:p-7 space-y-6 overflow-hidden relative">
       {/* ─── HEADER BAR ─── */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-slate-800/80">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-4 border-b border-white/[0.06]">
         <div className="flex items-center gap-3">
-          <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-500/20 via-orange-500/10 to-transparent border border-amber-500/40 flex items-center justify-center shrink-0">
-            <Trophy className="w-6 h-6 text-amber-400" />
+          <div className="w-11 h-11 rounded-2xl bg-gradient-to-b from-[#2a2d36] to-[#181920] border border-white/10 border-t-white/20 shadow-lg shadow-black/60 flex items-center justify-center shrink-0">
+            <Trophy className="w-5 h-5 text-[#f5e098] drop-shadow-[0_0_8px_rgba(245,224,152,0.4)]" />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <h3 className="font-mono text-sm sm:text-base font-black text-white uppercase tracking-wider">
                 THE $100 → $1,000 HYBRID VANGUARD CHALLENGE
               </h3>
-              <span className="px-2 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-widest bg-amber-950/80 text-amber-300 border border-amber-700/60">
+              <span className="px-2 py-0.5 rounded-full text-[9px] font-mono font-bold uppercase tracking-widest bg-amber-500/10 text-[#f5e098] border border-amber-500/20 shadow-sm">
                 12-Step Ladder
               </span>
             </div>
-            <p className="text-xs text-slate-400 mt-0.5">
-              Turn $100 into $1,000 across 12 high-conviction trades (~45–60 days) using Golden Ratio (1.618R) compounding.
+            <p className="text-xs text-slate-400 mt-0.5 font-medium">
+              Turn $100 into $1,000 across 12 high-conviction trades using Golden Ratio (1.618R) compounding.
             </p>
           </div>
         </div>
@@ -600,16 +600,16 @@ export default function Challenge100To1k({
         {/* Header Controls: Sync status, Backup/Restore, Share, Reset */}
         <div className="flex flex-wrap items-center gap-2">
           {/* Sync Status Badge */}
-          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-900/90 border border-slate-800 text-[10px] font-mono text-slate-400">
+          <div className="tactile-well flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-mono text-slate-400">
             {syncStatus === 'saving' ? (
               <>
                 <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
-                <span className="text-amber-300">Syncing...</span>
+                <span className="text-amber-300 font-semibold">Syncing...</span>
               </>
             ) : syncStatus === 'synced' ? (
               <>
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                <span className="text-emerald-400 font-bold">Auto-Saved (Disk & DB)</span>
+                <span className="text-emerald-400 font-bold">Auto-Saved</span>
               </>
             ) : (
               <>
@@ -631,7 +631,7 @@ export default function Challenge100To1k({
           {/* 1-Click Export Backup */}
           <button
             onClick={handleExportBackup}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-[11px] font-mono font-bold text-slate-300 hover:text-white transition-all border border-slate-700"
+            className="tactile-squircle flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-mono font-bold text-slate-300 hover:text-white"
             title="Download JSON backup file to keep on your drive"
           >
             <Download className="w-3 h-3 text-cyan-400" />
@@ -641,7 +641,7 @@ export default function Challenge100To1k({
           {/* 1-Click Restore Backup */}
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-[11px] font-mono font-bold text-slate-300 hover:text-white transition-all border border-slate-700"
+            className="tactile-squircle flex items-center gap-1.5 px-3 py-1.5 text-[11px] font-mono font-bold text-slate-300 hover:text-white"
             title="Upload and restore a previous JSON backup"
           >
             <Upload className="w-3 h-3 text-purple-400" />
@@ -651,7 +651,7 @@ export default function Challenge100To1k({
           {/* Share Milestone */}
           <button
             onClick={handleShareCard}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-mono font-bold text-slate-300 hover:text-white transition-all border border-slate-700"
+            className="tactile-squircle flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono font-bold text-slate-300 hover:text-white"
             title="Copy social progress card"
           >
             {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Share2 className="w-3.5 h-3.5 text-amber-400" />}
@@ -661,7 +661,7 @@ export default function Challenge100To1k({
           {/* Reset */}
           <button
             onClick={handleResetChallenge}
-            className="p-1.5 rounded-xl bg-slate-800/60 hover:bg-slate-700 text-slate-400 hover:text-white transition-all border border-slate-800"
+            className="tactile-squircle p-2 text-slate-400 hover:text-rose-300"
             title="Reset Challenge to Step 1"
           >
             <RotateCcw className="w-3.5 h-3.5" />
@@ -669,147 +669,233 @@ export default function Challenge100To1k({
         </div>
       </div>
 
-      {/* ─── LIVE PROGRESS BAR & MILESTONES ─── */}
-      <div className="space-y-3 bg-[#06080E] p-4 rounded-xl border border-slate-800/80">
-        <div className="flex flex-wrap items-center justify-between text-xs font-mono gap-2">
-          <div className="flex items-center gap-2">
-            <span className="text-slate-400">Current Equity:</span>
-            <span className="text-base font-black text-emerald-400">
-              ${currentEquity.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+      {/* ─── SHAKURO VIRTUAL PORTFOLIO CARD (CRYFORGE METALLIC CARD) ─── */}
+      <div className="metallic-card p-6 sm:p-7 relative overflow-hidden shadow-2xl text-white">
+        {/* Ambient glow highlight */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-amber-500/15 via-emerald-500/5 to-transparent rounded-full blur-3xl pointer-events-none" />
+
+        {/* Card Header */}
+        <div className="flex items-center justify-between pb-3">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-b from-white/20 to-white/5 border border-white/25 flex items-center justify-center shadow-inner">
+              <Sparkles className="w-4 h-4 text-[#f5e098]" />
+            </div>
+            <span className="font-mono font-black text-sm tracking-[0.25em] text-white uppercase">
+              PEAK VANGUARD
             </span>
-            <span className="text-slate-500">/ $1,000.00</span>
           </div>
 
-          <div className="flex items-center gap-3">
-            <span className="text-slate-400">
-              Stage: <strong className="text-white">{isCompleted ? '12/12 (COMPLETED)' : `Step ${currentStepIndex + 1} of 12`}</strong>
+          <div className="flex items-center gap-2">
+            <span className={`px-2.5 py-1 rounded-full text-[9px] font-mono font-black uppercase tracking-widest border ${
+              autoBotEnabled 
+                ? 'bg-emerald-500/20 text-emerald-300 border-emerald-400/40 shadow-[0_0_12px_rgba(52,211,153,0.3)]' 
+                : 'bg-white/5 text-slate-400 border-white/10'
+            }`}>
+              {autoBotEnabled ? '● 24/7 ACTIVE' : 'STANDBY'}
             </span>
-            <span className="text-amber-400 font-bold">{progressPct}% Complete</span>
           </div>
         </div>
 
+        {/* Card Center: Available Balance & Compounding Goal */}
+        <div className="my-4 flex flex-col sm:flex-row sm:items-baseline justify-between gap-3">
+          <div>
+            <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400 block mb-1">
+              AVAILABLE CAPITAL
+            </span>
+            <div className="flex items-baseline gap-2.5">
+              <span className="font-mono text-3xl sm:text-4xl font-black text-white tracking-tight">
+                ${currentEquity.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </span>
+              <span className="text-xs font-mono text-slate-400">
+                / $1,000.00 GOAL
+              </span>
+            </div>
+          </div>
+
+          {/* Shakuro Champagne Gold Badge */}
+          <div className="flex items-center gap-2">
+            <span className="gold-pill font-mono text-xs font-bold tracking-tight">
+              {progressPct}% COMPLETED
+            </span>
+          </div>
+        </div>
+
+        {/* Masked Card Number & Compounding Formula */}
+        <div className="pt-4 flex items-center justify-between font-mono text-xs text-slate-400 border-t border-white/[0.08]">
+          <span className="tracking-[0.3em] font-medium text-slate-300 text-[11px] sm:text-xs">
+            STEP {String(currentStepIndex + 1).padStart(2, '0')} •••• •••• 1000
+          </span>
+          <span className="text-[10px] tracking-wider text-slate-400 uppercase font-semibold">
+            EXP: ~60 DAYS • 1.618R GOLDEN RATIO
+          </span>
+        </div>
+      </div>
+
+      {/* Shakuro Quick Action Pills (Below Card) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono">
+        <div className="tactile-card-flat p-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center justify-center text-sm font-bold shadow-inner">
+              ↙
+            </div>
+            <div>
+              <span className="text-[9px] uppercase tracking-wider text-slate-400 block">STEP TARGET (+21.5%)</span>
+              <span className="text-sm font-black text-emerald-400">${activeStep.targetBalance.toFixed(2)}</span>
+            </div>
+          </div>
+          <span className="text-[10px] font-bold text-emerald-400 bg-emerald-950/40 px-2.5 py-1 rounded-full border border-emerald-500/30">
+            +${activeStep.gainDollars.toFixed(2)}
+          </span>
+        </div>
+
+        <div className="tactile-card-flat p-4 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30 flex items-center justify-center text-sm font-bold shadow-inner">
+              ↗
+            </div>
+            <div>
+              <span className="text-[9px] uppercase tracking-wider text-slate-400 block">HARD STOP (-3.5%)</span>
+              <span className="text-sm font-black text-rose-400">${(currentEquity * 0.965).toFixed(2)}</span>
+            </div>
+          </div>
+          <span className="text-[10px] font-bold text-rose-400 bg-rose-950/40 px-2.5 py-1 rounded-full border border-rose-500/30">
+            -${(currentEquity * 0.035).toFixed(2)}
+          </span>
+        </div>
+      </div>
+
+      {/* ─── LIVE PROGRESS BAR & MILESTONES ─── */}
+      <div className="tactile-well p-4 sm:p-5 space-y-3">
+        <div className="flex flex-wrap items-center justify-between text-xs font-mono gap-2">
+          <div className="flex items-center gap-2">
+            <span className="text-slate-400">Current Stage:</span>
+            <strong className="text-white">{isCompleted ? '12/12 (COMPLETED)' : `Step ${currentStepIndex + 1} of 12`}</strong>
+          </div>
+          <span className="text-[#f5e098] font-bold">{progressPct}% Complete</span>
+        </div>
+
         {/* Multi-segmented Progress Bar */}
-        <div className="w-full h-3 rounded-full bg-slate-900 border border-slate-800 overflow-hidden relative">
+        <div className="w-full h-3 rounded-full bg-[#08090b] border border-white/[0.05] shadow-inner overflow-hidden relative">
           <div
-            className="h-full bg-gradient-to-r from-amber-500 via-emerald-500 to-cyan-400 transition-all duration-500 rounded-full"
+            className="h-full bg-gradient-to-r from-amber-500 via-[#f5e098] to-emerald-400 transition-all duration-500 rounded-full shadow-[0_0_12px_rgba(245,224,152,0.5)]"
             style={{ width: `${Math.max(4, progressPct)}%` }}
           />
         </div>
 
         {/* Milestone Pinpoints */}
         <div className="grid grid-cols-4 gap-2 pt-1 text-center font-mono">
-          <div className={`p-1.5 rounded-lg border text-[10px] ${currentStepIndex >= 0 ? 'bg-amber-950/40 border-amber-600/50 text-amber-300' : 'bg-slate-900 border-slate-800 text-slate-500'}`}>
-            <span className="block font-bold">$100 (Start)</span>
+          <div className={`p-2 rounded-xl border text-[10px] transition-all ${currentStepIndex >= 0 ? 'bg-amber-500/10 border-amber-500/30 text-[#f5e098]' : 'bg-black/20 border-white/5 text-slate-500'}`}>
+            <span className="block font-bold">$100</span>
             <span className="text-[8px] opacity-75">Basecamp</span>
           </div>
-          <div className={`p-1.5 rounded-lg border text-[10px] ${currentStepIndex >= 3 ? 'bg-amber-950/40 border-amber-600/50 text-amber-300' : 'bg-slate-900 border-slate-800 text-slate-500'}`}>
-            <span className="block font-bold">$217 (Step 4)</span>
+          <div className={`p-2 rounded-xl border text-[10px] transition-all ${currentStepIndex >= 3 ? 'bg-amber-500/10 border-amber-500/30 text-[#f5e098]' : 'bg-black/20 border-white/5 text-slate-500'}`}>
+            <span className="block font-bold">$217</span>
             <span className="text-[8px] opacity-75">2X Doubler</span>
           </div>
-          <div className={`p-1.5 rounded-lg border text-[10px] ${currentStepIndex >= 7 ? 'bg-amber-950/40 border-amber-600/50 text-amber-300' : 'bg-slate-900 border-slate-800 text-slate-500'}`}>
-            <span className="block font-bold">$474 (Step 8)</span>
+          <div className={`p-2 rounded-xl border text-[10px] transition-all ${currentStepIndex >= 7 ? 'bg-amber-500/10 border-amber-500/30 text-[#f5e098]' : 'bg-black/20 border-white/5 text-slate-500'}`}>
+            <span className="block font-bold">$474</span>
             <span className="text-[8px] opacity-75">5X Halfway</span>
           </div>
-          <div className={`p-1.5 rounded-lg border text-[10px] ${currentStepIndex >= 11 ? 'bg-emerald-950/40 border-emerald-500/50 text-emerald-300' : 'bg-slate-900 border-slate-800 text-slate-500'}`}>
-            <span className="block font-bold">$1,034 (Goal)</span>
+          <div className={`p-2 rounded-xl border text-[10px] transition-all ${currentStepIndex >= 11 ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300' : 'bg-black/20 border-white/5 text-slate-500'}`}>
+            <span className="block font-bold">$1,034</span>
             <span className="text-[8px] opacity-75">10X Legend</span>
           </div>
         </div>
       </div>
 
       {/* ─── ASSET SELECTION CONTROLLER: HYBRID vs CRYPTO vs S&P 500 ─── */}
-      <div className="p-3 sm:p-4 rounded-xl bg-[#06080E] border border-slate-800/90 space-y-3">
+      <div className="tactile-well p-4 sm:p-5 space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-bold">
-              Challenge Asset Engine:
+            <span className="text-[11px] font-mono uppercase tracking-widest text-slate-400 font-bold">
+              ASSET ENGINE ROUTING:
             </span>
-            <span className="text-xs font-mono font-bold text-white">
-              {assetMode === 'hybrid' ? '🌐 Hybrid Vanguard (Auto Best)' : assetMode === 'btc' ? '₿ Crypto Locked (BTC)' : '📈 S&P 500 Locked (SPY)'}
+            <span className="text-xs font-mono font-bold text-[#f5e098]">
+              {assetMode === 'hybrid' ? '🌐 Hybrid Vanguard (Auto Highest Conviction)' : assetMode === 'btc' ? '₿ Bitcoin Locked' : '📈 S&P 500 Locked'}
             </span>
           </div>
           <span className="text-[10px] font-mono text-slate-400">
-            Switch anytime — your balance and ladder step remain saved.
+            Switch anytime — balance and ladder step remain saved.
           </span>
         </div>
 
-        {/* 3 Mode Selection Tabs */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+        {/* Tactile Segmented Switcher */}
+        <div className="tactile-pill-track grid grid-cols-1 sm:grid-cols-3 gap-1.5 p-1">
           {/* Hybrid Tab */}
           <button
             onClick={() => setAssetMode('hybrid')}
-            className={`p-2.5 rounded-xl border text-left transition-all font-mono ${
+            className={`p-3 rounded-2xl text-left transition-all font-mono ${
               assetMode === 'hybrid'
-                ? 'bg-amber-950/40 border-amber-500/80 text-amber-200 shadow-lg shadow-amber-950/40'
-                : 'bg-[#0B0F17] border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
+                ? 'tactile-pill-active border-t border-white/25 shadow-lg'
+                : 'text-slate-400 hover:text-slate-200'
             }`}
           >
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold flex items-center gap-1.5">
                 🌐 Hybrid Vanguard
               </span>
-              <span className="text-[9px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">
+              <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-amber-500/20 text-[#f5e098] font-bold">
                 AUTO
               </span>
             </div>
             <p className="text-[10px] text-slate-400 mt-1">
-              Auto-picks higher conviction: <strong className="text-emerald-400">{isBtcBetter ? `BTC (${btcScore})` : `SPY (${spyScore})`}</strong>
+              Auto-picks: <strong className="text-emerald-400">{isBtcBetter ? `BTC (${btcScore})` : `SPY (${spyScore})`}</strong>
             </p>
           </button>
 
           {/* Bitcoin Tab */}
           <button
             onClick={() => setAssetMode('btc')}
-            className={`p-2.5 rounded-xl border text-left transition-all font-mono ${
+            className={`p-3 rounded-2xl text-left transition-all font-mono ${
               assetMode === 'btc'
-                ? 'bg-amber-950/40 border-amber-500/80 text-amber-200 shadow-lg shadow-amber-950/40'
-                : 'bg-[#0B0F17] border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
+                ? 'tactile-pill-active border-t border-white/25 shadow-lg'
+                : 'text-slate-400 hover:text-slate-200'
             }`}
           >
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold flex items-center gap-1.5 text-amber-400">
                 ₿ Bitcoin (BTC)
               </span>
-              <span className="text-[9px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">
+              <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-white/10 text-slate-300">
                 CRYPTO
               </span>
             </div>
             <p className="text-[10px] text-slate-400 mt-1">
-              Score: <strong className="text-white">{btcScore}/100</strong> • 24/7 Global Liquidity
+              Score: <strong className="text-white">{btcScore}/100</strong> • 24/7 Liquidity
             </p>
           </button>
 
           {/* S&P 500 Tab */}
           <button
             onClick={() => setAssetMode('spy')}
-            className={`p-2.5 rounded-xl border text-left transition-all font-mono ${
+            className={`p-3 rounded-2xl text-left transition-all font-mono ${
               assetMode === 'spy'
-                ? 'bg-cyan-950/40 border-cyan-500/80 text-cyan-200 shadow-lg shadow-cyan-950/40'
-                : 'bg-[#0B0F17] border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700'
+                ? 'tactile-pill-active border-t border-white/25 shadow-lg'
+                : 'text-slate-400 hover:text-slate-200'
             }`}
           >
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold flex items-center gap-1.5 text-cyan-400">
                 📈 S&P 500 (SPY)
               </span>
-              <span className="text-[9px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">
+              <span className="text-[9px] px-1.5 py-0.5 rounded-full bg-white/10 text-slate-300">
                 INDEX ETF
               </span>
             </div>
             <p className="text-[10px] text-slate-400 mt-1">
-              Score: <strong className="text-white">{spyScore}/100</strong> • Institutional Index
+              Score: <strong className="text-white">{spyScore}/100</strong> • Macro Index
             </p>
           </button>
         </div>
       </div>
 
       {/* ─── BOT SIMULATOR: 1-TRADE-PER-DAY REAL-TIME AUTO-PILOT COCKPIT ─── */}
-      <div className={`p-4 sm:p-5 rounded-2xl border transition-all duration-300 ${
+      <div className={`p-5 sm:p-6 rounded-3xl border transition-all duration-300 ${
         autoBotEnabled 
-          ? 'bg-gradient-to-b from-[#091018] via-[#06080E] to-[#04060A] border-emerald-500/50 shadow-2xl shadow-emerald-950/40' 
-          : 'bg-[#06080E] border-slate-800/90'
+          ? 'tactile-card border-emerald-500/30 shadow-2xl' 
+          : 'tactile-card-flat border-white/[0.06]'
       }`}>
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-800/80">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/[0.06]">
           <div className="flex items-center gap-3">
             <div className={`w-10 h-10 rounded-xl flex items-center justify-center border transition-all ${
               autoBotEnabled 

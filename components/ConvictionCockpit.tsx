@@ -45,7 +45,7 @@ export default function ConvictionCockpit({ conviction, loading }: ConvictionCoc
   }
 
   return (
-    <div className="bg-[#0F1420] border border-slate-800/90 rounded-2xl p-5 lg:p-6 shadow-xl relative overflow-hidden">
+    <div className="tactile-card p-5 lg:p-7 relative overflow-hidden shadow-2xl space-y-6">
       {/* Background ambient gradient based on signal */}
       <div
         className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none opacity-20"
@@ -53,10 +53,10 @@ export default function ConvictionCockpit({ conviction, loading }: ConvictionCoc
       />
 
       {/* Top Banner: Composite Conviction Score */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-slate-800">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-white/[0.06]">
         <div className="flex items-start gap-4">
-          {/* Circular Score Badge */}
-          <div className="relative flex items-center justify-center w-20 h-20 rounded-2xl bg-[#080B11] border border-slate-700/80 p-2 shadow-inner">
+          {/* Circular/Squircle Score Badge */}
+          <div className="relative flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-b from-[#2a2d36] to-[#181920] border border-white/10 border-t-white/25 p-2 shadow-lg shadow-black/60">
             <div className="text-center">
               <span
                 className="font-mono text-3xl font-black tracking-tight"
