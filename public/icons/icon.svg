@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B0E14" />
+      <stop offset="100%" stop-color="#161B26" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#06B6D4" />
+    </linearGradient>
+    <linearGradient id="chartLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3B82F6" />
+      <stop offset="50%" stop-color="#10B981" />
+      <stop offset="100%" stop-color="#34D399" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background Circle with border -->
+  <rect width="512" height="512" rx="110" fill="url(#bg)" stroke="#222F3E" stroke-width="6" />
+
+  <!-- Mountain Peak / Timing V-Reversal Silhouette -->
+  <path d="M 96 350 L 220 180 L 270 235 L 340 140 L 416 350 Z" fill="url(#accent)" opacity="0.12" />
+
+  <!-- Rebound Grid Lines -->
+  <line x1="90" y1="360" x2="422" y2="360" stroke="#2A3546" stroke-width="3" stroke-dasharray="8 8" />
+  <line x1="90" y1="280" x2="422" y2="280" stroke="#2A3546" stroke-width="2" stroke-dasharray="8 8" />
+  <line x1="90" y1="200" x2="422" y2="200" stroke="#2A3546" stroke-width="2" stroke-dasharray="8 8" />
+
+  <!-- The Dip-Buying V-Curve -->
+  <path d="M 96 170 Q 180 370 260 370 T 416 130" fill="none" stroke="url(#chartLine)" stroke-width="14" stroke-linecap="round" filter="url(#glow)" />
+
+  <!-- Capitulation Dip Point (Green Target Node) -->
+  <circle cx="260" cy="370" r="18" fill="#10B981" filter="url(#glow)" />
+  <circle cx="260" cy="370" r="8" fill="#FFFFFF" />
+
+  <!-- Target Rebound Arrow at Apex -->
+  <polygon points="416,105 432,145 400,145" fill="#34D399" />
+
+  <!-- PEAK Text Badge -->
+  <text x="256" y="445" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="44" fill="#FFFFFF" letter-spacing="8">PEAK</text>
+  <text x="256" y="475" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="700" font-size="18" fill="#10B981" letter-spacing="4">DIP HUNTER ML</text>
+</svg>

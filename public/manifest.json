@@ -1,0 +1,45 @@
+{
+  "name": "PEAK Dip Hunter — S&P 500 & Crypto ML Timing",
+  "short_name": "PEAK Dip",
+  "description": "Institutional dip-buying and market timing intelligence with machine learning regimes, seasonality matrices, and TradingView charts.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0E14",
+  "theme_color": "#10B981",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Bitcoin Signals",
+      "short_name": "BTC Signals",
+      "url": "/?symbol=BTCUSDT",
+      "description": "View Bitcoin dip triggers and ML probability"
+    },
+    {
+      "name": "S&P 500 Signals",
+      "short_name": "SPY Signals",
+      "url": "/?symbol=SPY",
+      "description": "View S&P 500 SPY dip signals and VIX panic triggers"
+    }
+  ],
+  "categories": ["finance", "productivity", "utilities"]
+}
