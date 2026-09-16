@@ -197,7 +197,7 @@ export default function QuantfuryHubPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#070A0F] text-slate-100 selection:bg-emerald-500 selection:text-black">
+    <div className="min-h-screen bg-[var(--bg-base)] text-[var(--text-main)] selection:bg-emerald-500 selection:text-black">
       {/* Top Background Glow Gradients */}
       <div className="fixed inset-0 pointer-events-none z-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl" />

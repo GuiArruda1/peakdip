@@ -138,7 +138,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen w-full max-w-full overflow-x-hidden flex flex-col bg-[#080B11] text-slate-100">
+    <div className="min-h-screen w-full max-w-full overflow-x-hidden flex flex-col bg-[var(--bg-base)] text-[var(--text-main)]">
       {/* Header Navigation */}
       <Navbar
         selectedAsset={selectedAsset}
@@ -421,7 +421,7 @@ export default function Dashboard() {
     </main>
 
       {/* Terminal Footer */}
-      <footer className="border-t border-slate-800/80 bg-[#080B11] py-8 text-xs font-mono text-slate-500">
+      <footer className="border-t border-slate-800/80 bg-[var(--bg-base)] py-8 text-xs font-mono text-slate-500">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1.5 text-emerald-400">

@@ -51,6 +51,19 @@ export default function TradingViewChart({
   } | null>(null);
 
   const [selectedRange, setSelectedRange] = useState<'6M' | '1Y' | '3Y' | 'ALL'>('1Y');
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  useEffect(() => {
+    const checkTheme = () => {
+      const isLight = document.documentElement.classList.contains('light');
+      setTheme(isLight ? 'light' : 'dark');
+    };
+    checkTheme();
+
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!mainChartContainerRef.current || !rsiChartContainerRef.current || candles.length === 0) {
@@ -81,9 +94,11 @@ export default function TradingViewChart({
 
     cleanupCharts();
 
-    const chartBg = '#0B0F17';
-    const gridColor = '#161F2E';
-    const textColor = '#64748B';
+    const isLight = theme === 'light';
+    const chartBg = isLight ? '#FFFFFF' : '#0B0F17';
+    const gridColor = isLight ? '#F1F5F9' : '#161F2E';
+    const textColor = isLight ? '#475569' : '#64748B';
+    const borderColor = isLight ? '#E2E8F0' : '#1F293D';
 
     const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
     const initialMainHeight = isMobile ? 270 : 380;
@@ -106,11 +121,11 @@ export default function TradingViewChart({
         mode: CrosshairMode.Normal,
       },
       rightPriceScale: {
-        borderColor: '#1F293D',
+        borderColor,
         scaleMargins: { top: 0.1, bottom: 0.15 },
       },
       timeScale: {
-        borderColor: '#1F293D',
+        borderColor,
         timeVisible: true,
         secondsVisible: false,
       },
@@ -155,11 +170,11 @@ export default function TradingViewChart({
         mode: CrosshairMode.Normal,
       },
       rightPriceScale: {
-        borderColor: '#1F293D',
+        borderColor,
         scaleMargins: { top: 0.1, bottom: 0.1 },
       },
       timeScale: {
-        borderColor: '#1F293D',
+        borderColor,
         visible: true,
       },
     });
@@ -302,7 +317,7 @@ export default function TradingViewChart({
       window.removeEventListener('resize', handleResize);
       cleanupCharts();
     };
-  }, [candles, indicators, markers, symbol]);
+  }, [candles, indicators, markers, symbol, theme]);
 
   const handleZoom = (range: '6M' | '1Y' | '3Y' | 'ALL') => {
     setSelectedRange(range);

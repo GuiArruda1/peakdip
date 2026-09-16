@@ -292,9 +292,12 @@ button.bg-slate-800\/80:hover {
 }
 
 /* ==========================================================================
-   Light Mode Theme Overrides
+   Apple & Linear-Grade Light Mode Theme System
    ========================================================================== */
+
+/* Universal Cards & Containers */
 html.light .tactile-card,
+html.light .tactile-card-flat,
 html.light .bg-\[\#0F1420\],
 html.light .bg-\[\#0B0F17\],
 html.light .bg-\[\#090D16\],
@@ -303,19 +306,13 @@ html.light .bg-\[\#070A10\],
 html.light .bg-\[\#0B0E14\],
 html.light .bg-\[\#070A0F\] {
   background: #ffffff !important;
-  border-color: rgba(0, 0, 0, 0.08) !important;
-  border-top-color: rgba(255, 255, 255, 0.95) !important;
-  box-shadow: 0 12px 30px -6px rgba(0, 0, 0, 0.07), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
-  color: #14171d !important;
+  border: 1px solid #e2e8f0 !important;
+  border-top: 1px solid #f8fafc !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.02) !important;
+  color: #0f172a !important;
 }
 
-html.light .tactile-card-flat {
-  background: #ffffff !important;
-  border-color: rgba(0, 0, 0, 0.08) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
-  color: #14171d !important;
-}
-
+/* Universal Recessed Inset Wells & Sub-Panels */
 html.light .tactile-well,
 html.light .bg-\[\#06080E\],
 html.light .bg-\[\#08090b\],
@@ -323,74 +320,250 @@ html.light .bg-\[\#05070B\],
 html.light .bg-\[\#04060A\],
 html.light .bg-\[\#06080e\],
 html.light .bg-\[\#0e0f14\],
-html.light .bg-\[\#0e0f13\] {
-  background: #e9edf4 !important;
-  border-color: rgba(0, 0, 0, 0.06) !important;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06), inset 0 0 1px rgba(0, 0, 0, 0.08) !important;
-  color: #14171d !important;
+html.light .bg-\[\#0e0f13\],
+html.light .bg-\[\#080B11\],
+html.light .bg-\[\#080B11\]\/90,
+html.light .bg-\[\#080B11\]\/80,
+html.light .bg-\[\#080B11\]\/70,
+html.light .bg-\[\#080B11\]\/60,
+html.light .bg-\[\#080B11\]\/50,
+html.light .bg-slate-900,
+html.light .bg-slate-900\/50,
+html.light .bg-slate-900\/80,
+html.light .bg-slate-950,
+html.light .bg-slate-950\/50 {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: inset 0 1px 3px rgba(15, 23, 42, 0.03) !important;
+  color: #0f172a !important;
 }
 
-html.light .tactile-pill-track {
-  background: #dfe3ec !important;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.08) !important;
+/* Pill Tracks & Segmented Control Sliders */
+html.light .tactile-pill-track,
+html.light div.bg-\[\#0e0f13\] {
+  background: #e2e8f0 !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.06) !important;
 }
 
-html.light .tactile-pill-active {
+html.light .tactile-pill-active,
+html.light [class*="bg-gradient-to-b"][class*="from-\[#2e3039\]"] {
   background: #ffffff !important;
-  color: #14171d !important;
-  border-top-color: rgba(255, 255, 255, 1) !important;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1) !important;
+  color: #0f172a !important;
+  border: 1px solid #e2e8f0 !important;
+  border-top: 1px solid #ffffff !important;
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.08) !important;
 }
 
+/* Tactile Squircle & Slate Buttons */
 html.light .tactile-squircle,
 html.light button.bg-slate-800,
 html.light button.bg-slate-800\/60,
 html.light button.bg-slate-800\/80 {
-  background: linear-gradient(180deg, #ffffff 0%, #f0f3f8 100%) !important;
-  border-color: rgba(0, 0, 0, 0.1) !important;
-  border-top-color: rgba(255, 255, 255, 0.95) !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06) !important;
-  color: #1a1e27 !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
+  border: 1px solid #cbd5e1 !important;
+  border-top: 1px solid #ffffff !important;
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.05) !important;
+  color: #0f172a !important;
 }
 
-html.light .border-slate-800,
-html.light .border-slate-800\/90,
-html.light .border-slate-800\/80,
-html.light .border-slate-800\/70 {
-  border-color: rgba(0, 0, 0, 0.08) !important;
+html.light .tactile-squircle:hover,
+html.light button.bg-slate-800:hover,
+html.light button.bg-slate-800\/60:hover,
+html.light button.bg-slate-800\/80:hover {
+  background: #ffffff !important;
+  border-color: #94a3b8 !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08) !important;
+  transform: translateY(-1px) !important;
 }
 
-html.light .text-white {
-  color: #14171d !important;
+/* Virtual Titanium Metallic Card Hero (Preserve luxury executive styling) */
+html.light .metallic-card {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+  border: 1px solid #334155 !important;
+  border-top: 1px solid #475569 !important;
+  box-shadow: 0 16px 36px -8px rgba(15, 23, 42, 0.35) !important;
+  color: #ffffff !important;
 }
 
 html.light .metallic-card .text-white {
   color: #ffffff !important;
 }
 
+html.light .metallic-card .text-slate-400 {
+  color: #94a3b8 !important;
+}
+
+/* Typography Hierarchy */
+html.light h1, 
+html.light h2, 
+html.light h3, 
+html.light h4, 
+html.light h5, 
+html.light h6 {
+  color: #0f172a !important;
+}
+
 html.light .text-slate-100 {
-  color: #14171d !important;
+  color: #0f172a !important;
 }
 
 html.light .text-slate-200 {
-  color: #242934 !important;
+  color: #1e293b !important;
 }
 
 html.light .text-slate-300 {
-  color: #3b4252 !important;
+  color: #334155 !important;
 }
 
 html.light .text-slate-400 {
-  color: #5a6476 !important;
+  color: #64748b !important;
 }
 
+html.light .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+/* Scoped text-white replacement that doesn't break buttons or colored badges */
+html.light span.text-white:not([class*="bg-"]):not([class*="text-"]):not(.metallic-card *),
+html.light div.text-white:not([class*="bg-"]):not([class*="text-"]):not(.metallic-card *),
+html.light p.text-white:not([class*="bg-"]):not([class*="text-"]):not(.metallic-card *),
+html.light span.font-mono.font-black.text-white {
+  color: #0f172a !important;
+}
+
+/* Brand Gold Accent in Light Mode */
+html.light .text-\[\#f5e098\] {
+  color: #d97706 !important;
+}
+
+/* Apple-Grade Crisp Pastel Badges & Indicator Tags */
+html.light .bg-emerald-950\/40,
+html.light .bg-emerald-950\/50,
+html.light .bg-emerald-900\/40,
+html.light .bg-emerald-500\/10,
+html.light .bg-emerald-500\/20 {
+  background: #ecfdf5 !important;
+  color: #047857 !important;
+  border-color: #a7f3d0 !important;
+}
+
+html.light .bg-rose-950\/40,
+html.light .bg-rose-950\/50,
+html.light .bg-rose-900\/40,
+html.light .bg-rose-500\/10,
+html.light .bg-rose-500\/20,
+html.light .bg-red-500\/10,
+html.light .bg-red-500\/20 {
+  background: #fff1f2 !important;
+  color: #be123c !important;
+  border-color: #fecdd3 !important;
+}
+
+html.light .bg-amber-950\/40,
+html.light .bg-amber-950\/50,
+html.light .bg-amber-900\/40,
+html.light .bg-amber-500\/10,
+html.light .bg-amber-500\/20,
+html.light .bg-yellow-500\/10,
+html.light .bg-yellow-500\/20 {
+  background: #fffbeb !important;
+  color: #b45309 !important;
+  border-color: #fde68a !important;
+}
+
+html.light .bg-blue-950\/40,
+html.light .bg-blue-950\/50,
+html.light .bg-blue-900\/40,
+html.light .bg-blue-500\/10,
+html.light .bg-blue-500\/20,
+html.light .bg-cyan-950\/40,
+html.light .bg-cyan-500\/10,
+html.light .bg-cyan-500\/20 {
+  background: #eff6ff !important;
+  color: #1d4ed8 !important;
+  border-color: #bfdbfe !important;
+}
+
+html.light .bg-purple-950\/40,
+html.light .bg-purple-950\/50,
+html.light .bg-purple-900\/40,
+html.light .bg-purple-500\/10,
+html.light .bg-purple-500\/20 {
+  background: #faf5ff !important;
+  color: #7e22ce !important;
+  border-color: #e9d5ff !important;
+}
+
+/* Call-to-Action Colored Action Buttons (Preserve bold white text) */
+html.light .bg-emerald-600,
+html.light .bg-emerald-500,
+html.light .bg-green-600,
+html.light .bg-green-500,
+html.light .bg-rose-600,
+html.light .bg-rose-500,
+html.light .bg-red-600,
+html.light .bg-red-500,
+html.light .bg-blue-600,
+html.light .bg-blue-500,
+html.light .bg-amber-600,
+html.light .bg-amber-500 {
+  color: #ffffff !important;
+}
+
+html.light .bg-emerald-600 *,
+html.light .bg-emerald-500 *,
+html.light .bg-green-600 *,
+html.light .bg-green-500 *,
+html.light .bg-rose-600 *,
+html.light .bg-rose-500 *,
+html.light .bg-red-600 *,
+html.light .bg-red-500 *,
+html.light .bg-blue-600 *,
+html.light .bg-blue-500 *,
+html.light .bg-amber-600 *,
+html.light .bg-amber-500 * {
+  color: #ffffff !important;
+}
+
+/* Universal Border Softening in Light Mode */
+html.light .border-slate-800,
+html.light .border-slate-800\/90,
+html.light .border-slate-800\/80,
+html.light .border-slate-800\/70,
+html.light .border-slate-800\/60,
+html.light .border-slate-800\/50,
+html.light .border-slate-800\/40,
+html.light .border-slate-700,
+html.light .border-white\/10,
+html.light .border-white\/5,
+html.light .border-white\/\[0\.05\],
+html.light .border-white\/\[0\.06\] {
+  border-color: #e2e8f0 !important;
+}
+
+/* Header, Navbar & Floating Mobile Dock */
 html.light header {
-  background: rgba(255, 255, 255, 0.88) !important;
-  border-color: rgba(0, 0, 0, 0.08) !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04) !important;
 }
 
 html.light nav {
-  background: rgba(255, 255, 255, 0.92) !important;
-  border-color: rgba(0, 0, 0, 0.1) !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: #e2e8f0 !important;
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.08) !important;
 }
+
+/* Light Mode Scrollbars */
+html.light ::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+html.light ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+}
+html.light ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
 

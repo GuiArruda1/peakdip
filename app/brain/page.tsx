@@ -96,7 +96,7 @@ export default function BrainPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#080B11] text-slate-100 flex flex-col selection:bg-emerald-500 selection:text-white">
+    <div className="min-h-screen w-full bg-[var(--bg-base)] text-[var(--text-main)] flex flex-col selection:bg-emerald-500 selection:text-white">
       {/* Top Header */}
       <header className="sticky top-0 z-40 border-b border-slate-800/90 bg-[#080B11]/90 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
