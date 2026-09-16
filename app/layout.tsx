@@ -34,12 +34,32 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark overflow-x-hidden max-w-full">
+    <html lang="en" className="dark overflow-x-hidden max-w-full" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/icons/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const savedTheme = localStorage.getItem('peak_theme');
+                  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  const theme = savedTheme || (prefersDark ? 'dark' : 'light');
+                  if (theme === 'light') {
+                    document.documentElement.classList.remove('dark');
+                    document.documentElement.classList.add('light');
+                  } else {
+                    document.documentElement.classList.remove('light');
+                    document.documentElement.classList.add('dark');
+                  }
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
       </head>
-      <body className="min-h-screen w-full max-w-full overflow-x-hidden bg-[#080B11] text-slate-100 antialiased selection:bg-emerald-500/30 selection:text-emerald-300">
+      <body className="min-h-screen w-full max-w-full overflow-x-hidden bg-[var(--bg-base)] text-[var(--text-main)] antialiased selection:bg-emerald-500/30 selection:text-emerald-300 transition-colors duration-200">
         <PWARegistration />
         <JarvisDailyBriefingBot />
         {children}

@@ -17,6 +17,35 @@
   --text-main: #F1F5F9;
   --text-muted: #8E95A2;
   --text-dim: #606775;
+  color-scheme: dark;
+}
+
+html.light {
+  --bg-base: #f4f6fa;
+  --bg-card: #ffffff;
+  --bg-card-elevated: #ffffff;
+  --bg-well: #e9ecf2;
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-highlight: rgba(0, 0, 0, 0.14);
+  --accent-gold: #c99812;
+  --accent-amber: #d97706;
+  --accent-mint: #059669;
+  --accent-emerald: #059669;
+  --accent-cyan: #0891b2;
+  --accent-blue: #2563eb;
+  --accent-red: #dc2626;
+  --text-main: #14171d;
+  --text-muted: #5e6676;
+  --text-dim: #8c95a6;
+  color-scheme: light;
+}
+
+html.light body {
+  background-color: var(--bg-base);
+  color: var(--text-main);
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(220, 226, 238, 0.6) 0%, transparent 60%),
+    radial-gradient(circle at 100% 50%, rgba(230, 235, 245, 0.6) 0%, transparent 50%);
 }
 
 body {
@@ -260,5 +289,108 @@ button.bg-slate-800\/80:hover {
   background: linear-gradient(180deg, #2c2e38 0%, #1d1e26 100%) !important;
   border-top-color: rgba(255, 255, 255, 0.28) !important;
   transform: translateY(-1px) !important;
+}
+
+/* ==========================================================================
+   Light Mode Theme Overrides
+   ========================================================================== */
+html.light .tactile-card,
+html.light .bg-\[\#0F1420\],
+html.light .bg-\[\#0B0F17\],
+html.light .bg-\[\#090D16\],
+html.light .bg-\[\#090D15\],
+html.light .bg-\[\#070A10\],
+html.light .bg-\[\#0B0E14\],
+html.light .bg-\[\#070A0F\] {
+  background: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  border-top-color: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 12px 30px -6px rgba(0, 0, 0, 0.07), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+  color: #14171d !important;
+}
+
+html.light .tactile-card-flat {
+  background: #ffffff !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+  color: #14171d !important;
+}
+
+html.light .tactile-well,
+html.light .bg-\[\#06080E\],
+html.light .bg-\[\#08090b\],
+html.light .bg-\[\#05070B\],
+html.light .bg-\[\#04060A\],
+html.light .bg-\[\#06080e\],
+html.light .bg-\[\#0e0f14\],
+html.light .bg-\[\#0e0f13\] {
+  background: #e9edf4 !important;
+  border-color: rgba(0, 0, 0, 0.06) !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06), inset 0 0 1px rgba(0, 0, 0, 0.08) !important;
+  color: #14171d !important;
+}
+
+html.light .tactile-pill-track {
+  background: #dfe3ec !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.08) !important;
+}
+
+html.light .tactile-pill-active {
+  background: #ffffff !important;
+  color: #14171d !important;
+  border-top-color: rgba(255, 255, 255, 1) !important;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+html.light .tactile-squircle,
+html.light button.bg-slate-800,
+html.light button.bg-slate-800\/60,
+html.light button.bg-slate-800\/80 {
+  background: linear-gradient(180deg, #ffffff 0%, #f0f3f8 100%) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
+  border-top-color: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06) !important;
+  color: #1a1e27 !important;
+}
+
+html.light .border-slate-800,
+html.light .border-slate-800\/90,
+html.light .border-slate-800\/80,
+html.light .border-slate-800\/70 {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+html.light .text-white {
+  color: #14171d !important;
+}
+
+html.light .metallic-card .text-white {
+  color: #ffffff !important;
+}
+
+html.light .text-slate-100 {
+  color: #14171d !important;
+}
+
+html.light .text-slate-200 {
+  color: #242934 !important;
+}
+
+html.light .text-slate-300 {
+  color: #3b4252 !important;
+}
+
+html.light .text-slate-400 {
+  color: #5a6476 !important;
+}
+
+html.light header {
+  background: rgba(255, 255, 255, 0.88) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+html.light nav {
+  background: rgba(255, 255, 255, 0.92) !important;
+  border-color: rgba(0, 0, 0, 0.1) !important;
 }
 

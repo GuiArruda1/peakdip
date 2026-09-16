@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Activity, RefreshCw, Layers, TrendingUp, Zap, Home, Brain } from 'lucide-react';
+import { Activity, RefreshCw, Layers, TrendingUp, Zap, Home, Brain, Sun, Moon } from 'lucide-react';
 import PWARegistration from './PWARegistration';
 import NotificationSettingsModal from './NotificationSettingsModal';
 
@@ -31,6 +31,30 @@ export default function Navbar({
 }: NavbarProps) {
   const isBtc = selectedAsset === 'BTCUSDT';
   const isPositive = priceChange24h >= 0;
+
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  useEffect(() => {
+    try {
+      const isLight = document.documentElement.classList.contains('light');
+      setTheme(isLight ? 'light' : 'dark');
+    } catch (e) {}
+  }, []);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === 'dark' ? 'light' : 'dark';
+    setTheme(nextTheme);
+    if (nextTheme === 'light') {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+    } else {
+      document.documentElement.classList.remove('light');
+      document.documentElement.classList.add('dark');
+    }
+    try {
+      localStorage.setItem('peak_theme', nextTheme);
+    } catch (e) {}
+  };
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-[#121418]/90 backdrop-blur-xl shadow-2xl">
@@ -175,6 +199,20 @@ export default function Navbar({
             <div className="relative">
               <NotificationSettingsModal />
             </div>
+
+            {/* Theme Toggle Button (Light / Dark Mode) */}
+            <button
+              onClick={toggleTheme}
+              className="tactile-squircle p-2 text-slate-300 hover:text-white transition-all flex items-center justify-center shrink-0"
+              title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+              aria-label="Toggle light/dark theme"
+            >
+              {theme === 'dark' ? (
+                <Sun className="w-4 h-4 text-[#f5e098] hover:rotate-45 transition-transform" />
+              ) : (
+                <Moon className="w-4 h-4 text-indigo-400 hover:-rotate-12 transition-transform" />
+              )}
+            </button>
 
             {/* PWA Install Button */}
             <PWARegistration />
